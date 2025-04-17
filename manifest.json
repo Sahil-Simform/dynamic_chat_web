@@ -1,6 +1,6 @@
 {
-    "name": "dynamic_chat",
-    "short_name": "dynamic_chat",
+    "name": "flutter_os_doc_website",
+    "short_name": "flutter_os_doc_website",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

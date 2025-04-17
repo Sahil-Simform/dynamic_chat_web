@@ -14,6 +14,7 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
+
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
@@ -21,16 +22,168 @@
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="dynamic_chat">
+  <meta name="apple-mobile-web-app-title" content="flutter_os_doc_website">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>dynamic_chat</title>
+  <title>flutter_os_doc_website</title>
   <link rel="manifest" href="manifest.json">
+
+  <!-- Custom loading animation styles -->
+  <style>
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100vw;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #F3F0FA; /* Using your app's softPurpleBackground color */
+      z-index: 999;
+      transition: opacity 0.5s ease-out;
+    }
+    
+    .dots-container {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      animation: container-rotate 6s linear infinite;
+    }
+    
+    .dot {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background-color: #380D70; /* Your app's primaryPurple color */
+      border-radius: 50%;
+      animation: dot-move 2s infinite cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+    
+    .dot:nth-child(1) {
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      animation-name: dot-move-top;
+    }
+    
+    .dot:nth-child(2) {
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      animation-name: dot-move-right;
+    }
+    
+    .dot:nth-child(3) {
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      animation-name: dot-move-bottom;
+    }
+    
+    .dot:nth-child(4) {
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      animation-name: dot-move-left;
+    }
+    
+    @keyframes container-rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes dot-move-top {
+      0%, 100% { transform: translate(-50%, 0); }
+      25%, 75% { transform: translate(-50%, 24px) scale(1.5); }
+      50% { transform: translate(-50%, 0); }
+    }
+    
+    @keyframes dot-move-right {
+      0%, 100% { transform: translate(0, -50%); }
+      25%, 75% { transform: translate(-24px, -50%) scale(1.5); }
+      50% { transform: translate(0, -50%); }
+    }
+    
+    @keyframes dot-move-bottom {
+      0%, 100% { transform: translate(-50%, 0); }
+      25%, 75% { transform: translate(-50%, -24px) scale(1.5); }
+      50% { transform: translate(-50%, 0); }
+    }
+    
+    @keyframes dot-move-left {
+      0%, 100% { transform: translate(0, -50%); }
+      25%, 75% { transform: translate(24px, -50%) scale(1.5); }
+      50% { transform: translate(0, -50%); }
+    }
+  </style>
+
+  <script>
+    // The value below is injected by flutter build, do not touch.
+    const serviceWorkerVersion = "1737061424";
+  </script>
+  <!-- This script adds the flutter initialization JS code -->
+  <script src="flutter.js" defer></script>
 </head>
 <body>
-  <script src="flutter_bootstrap.js" async></script>
+  <!-- Loading animation HTML -->
+  <div id="loading" class="loading">
+    <div class="dots-container">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('load', function(ev) {
+      // Download main.dart.js
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+          engineInitializer.initializeEngine().then(function(appRunner) {
+            appRunner.runApp();
+            // Hide the loading animation once Flutter is initialized
+            const loader = document.getElementById('loading');
+            if (loader) {
+              loader.style.opacity = '0';
+              setTimeout(function() {
+                loader.style.display = 'none';
+              }, 500);
+            }
+          });
+        }
+      });
+    });
+  </script>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyD3EYB-sUsiF509aeANIW1GQgq5HzTz3zI",
+      authDomain: "simform-flutter-packages.firebaseapp.com",
+      projectId: "simform-flutter-packages",
+      storageBucket: "simform-flutter-packages.firebasestorage.app",
+      messagingSenderId: "483966650896",
+      appId: "1:483966650896:web:b9b07bf4a257348147d895",
+      measurementId: "G-NQMNW9PTWK"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
 </body>
 </html>
