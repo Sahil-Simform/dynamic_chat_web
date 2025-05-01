@@ -1,2 +1,21 @@
 [build]
     functions = "netlify_functions"
+
+# Edge function route configuration
+[[edge_functions]]
+    path = "/api/package-data"
+    function = "get-package-data"
+
+# Enable scheduled functions
+[functions]
+    node_bundler = "esbuild"
+    external_node_modules = ["@netlify/functions", "@netlify/blobs", "axios"]
+
+# Scheduled function configuration
+[functions.fetch-package-data]
+    schedule = "*/5 * * * *"
+    
+# KV Store configuration
+[[kv_namespaces]]
+    binding = "KV"
+    namespace = "package-scores"

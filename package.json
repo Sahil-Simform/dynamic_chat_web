@@ -1,5 +1,13 @@
 {
   "dependencies": {
-    "node-fetch": "^2.7.0"
+    "node-fetch": "^2.7.0",
+    "@netlify/functions": "^2.4.1",
+    "@netlify/blobs": "^6.3.0",
+    "axios": "^1.6.2",
+    "toml": "^3.0.0"
+  },
+  "scripts": {
+    "test:scheduled": "node test-scheduled-function.js",
+    "validate:config": "node validate-netlify-config.js"
   }
 }
