@@ -21,7 +21,7 @@ const MANUAL_NETLIFY_CONFIG = {
 };
 
 // Default packages to track
-const DEFAULT_PACKAGES = ['showcaseview, chatview, calendarView, flutter_credit_card, audio_waveforms'];
+const DEFAULT_PACKAGES = ['showcaseview', 'chatview', 'calendar_view', 'flutter_credit_card', 'audio_waveforms'];
 
 module.exports = {
   FORCE_PRODUCTION_MODE,
