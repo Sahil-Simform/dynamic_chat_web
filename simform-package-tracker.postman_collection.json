@@ -1,0 +1,291 @@
+{
+	"info": {
+		"_postman_id": "c5ea7b4e-9e24-4fe3-a945-6a5b38c67d0d",
+		"name": "Simform Package Tracker",
+		"description": "APIs for the Simform Flutter Package Tracker application that collects metrics from pub.dev and serves them through Netlify Functions and Edge Functions.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Package Data",
+			"item": [
+				{
+					"name": "Get All Package Data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/package-data",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"package-data"
+							]
+						},
+						"description": "Retrieves data for all tracked packages from pub.dev. The data is cached and updated every 5 minutes by the scheduled function."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Specific Package Data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/package-data?package=flutter",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"package-data"
+							],
+							"query": [
+								{
+									"key": "package",
+									"value": "flutter"
+								}
+							]
+						},
+						"description": "Retrieves data for a specific package from pub.dev. The package name should be specified in the query parameter."
+					},
+					"response": []
+				}
+			],
+			"description": "Edge Function endpoints that serve package data collected from pub.dev"
+		},
+		{
+			"name": "Package Management",
+			"item": [
+				{
+					"name": "List Tracked Packages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/.netlify/functions/manage-packages",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								".netlify",
+								"functions",
+								"manage-packages"
+							]
+						},
+						"description": "Gets the current list of packages being tracked by the system."
+					},
+					"response": []
+				},
+				{
+					"name": "Add Package",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"action\": \"add\",\n    \"package\": \"flutter_bloc\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/.netlify/functions/manage-packages",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								".netlify",
+								"functions",
+								"manage-packages"
+							]
+						},
+						"description": "Adds a single package to the list of tracked packages."
+					},
+					"response": []
+				},
+				{
+					"name": "Add Multiple Packages",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"action\": \"add\",\n    \"packages\": [\"flutter_bloc\", \"get_it\", \"dio\"]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/.netlify/functions/manage-packages",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								".netlify",
+								"functions",
+								"manage-packages"
+							]
+						},
+						"description": "Adds multiple packages to the list of tracked packages."
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Package",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"action\": \"remove\",\n    \"package\": \"http\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/.netlify/functions/manage-packages",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								".netlify",
+								"functions",
+								"manage-packages"
+							]
+						},
+						"description": "Removes a single package from the list of tracked packages."
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Multiple Packages",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"action\": \"remove\",\n    \"packages\": [\"provider\", \"http\"]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/.netlify/functions/manage-packages",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								".netlify",
+								"functions",
+								"manage-packages"
+							]
+						},
+						"description": "Removes multiple packages from the list of tracked packages."
+					},
+					"response": []
+				},
+				{
+					"name": "Set Package List",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"action\": \"set\",\n    \"packages\": [\"flutter\", \"flutter_bloc\", \"equatable\", \"dio\", \"get_it\"]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/.netlify/functions/manage-packages",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								".netlify",
+								"functions",
+								"manage-packages"
+							]
+						},
+						"description": "Replaces the entire list of tracked packages with a new list."
+					},
+					"response": []
+				}
+			],
+			"description": "APIs for managing which packages are tracked by the system."
+		},
+		{
+			"name": "Manual Functions",
+			"item": [
+				{
+					"name": "Trigger Data Fetch (Manual)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/.netlify/functions/fetch-package-data",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								".netlify",
+								"functions",
+								"fetch-package-data"
+							]
+						},
+						"description": "Manually triggers the function that fetches package data from pub.dev. This function normally runs on a schedule every 5 minutes."
+					},
+					"response": []
+				}
+			],
+			"description": "Functions that can be manually triggered."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://simform-flutter-packages.netlify.app",
+			"type": "string",
+			"description": "Base URL for the Netlify site"
+		},
+		{
+			"key": "localBaseUrl",
+			"value": "http://localhost:8888",
+			"type": "string",
+			"description": "Base URL for local development with Netlify CLI"
+		}
+	]
+}

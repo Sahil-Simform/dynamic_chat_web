@@ -52,7 +52,8 @@ export default async (request) => {
             status: 404,
             headers: {
               ...corsHeaders,
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Cache-Control': 'no-cache'
             }
           }
         );
@@ -75,7 +76,7 @@ export default async (request) => {
         headers: {
           ...corsHeaders,
           'Content-Type': 'application/json',
-          'Cache-Control': 'public, max-age=60'
+          'Cache-Control': 'max-age=6400,public,must-revalidate'
         }
       }
     );
