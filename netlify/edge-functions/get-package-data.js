@@ -20,6 +20,12 @@ async function getLastUpdated() {
   return raw ? JSON.parse(raw) : null;
 }
 
+async function getGithubLastUpdated() {
+  const store = getStore({ name: NAMESPACE });
+  const raw = await store.get('github-last-updated');
+  return raw ? JSON.parse(raw) : null;
+}
+
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, OPTIONS',
@@ -63,11 +69,13 @@ export default async (request) => {
     }
 
     const lastUpdated = await getLastUpdated();
+    const githubLastUpdated = await getGithubLastUpdated();
 
     return new Response(
       JSON.stringify({
         data,
         lastUpdated,
+        githubLastUpdated,
         environment: 'production',
         accessMethod: 'blob-storage'
       }),

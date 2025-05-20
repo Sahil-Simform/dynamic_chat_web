@@ -166,10 +166,70 @@ async function getPackageData(packageName) {
   }
 }
 
+/**
+ * Saves GitHub data for packages and merges it with existing package data
+ */
+async function saveGithubData(githubData, currentPackageData) {
+  try {
+    const store = getStoreInstance();
+    
+    // Store the GitHub data separately
+    await store.set('github-data', JSON.stringify(githubData));
+    await store.set(`${NAMESPACE}:github-data`, JSON.stringify(githubData));
+    
+    // Merge GitHub data with existing package data
+    const mergedData = { ...currentPackageData };
+    
+    for (const [pkg, ghData] of Object.entries(githubData)) {
+      if (mergedData[pkg]) {
+        // Merge GitHub data with existing package data
+        mergedData[pkg] = { 
+          ...mergedData[pkg], 
+          github: ghData
+        };
+        
+        // Save the updated individual package data
+        await store.set(`package-${pkg}`, JSON.stringify(mergedData[pkg]));
+        await store.set(`${NAMESPACE}:package-${pkg}`, JSON.stringify(mergedData[pkg]));
+      }
+    }
+    
+    // Update the full package data with merged GitHub information
+    await store.set('package-data', JSON.stringify(mergedData));
+    await store.set(`${NAMESPACE}:package-data`, JSON.stringify(mergedData));
+    
+    // Update the timestamp
+    const timestamp = new Date().toISOString();
+    await store.set('github-last-updated', JSON.stringify(timestamp));
+    await store.set(`${NAMESPACE}:github-last-updated`, JSON.stringify(timestamp));
+    
+    return true;
+  } catch (error) {
+    console.error(`Error saving GitHub data: ${error.message}`);
+    return false;
+  }
+}
+
+/**
+ * Gets GitHub data for all packages
+ */
+async function getGithubData() {
+  try {
+    const store = getStoreInstance();
+    const data = await store.get('github-data');
+    return data ? JSON.parse(data) : {};
+  } catch (error) {
+    console.error(`Error getting GitHub data: ${error.message}`);
+    return {};
+  }
+}
+
 module.exports = {
   getPackageList,
   updatePackageList,
   savePackageData,
   getAllPackageData,
-  getPackageData
+  getPackageData,
+  saveGithubData,
+  getGithubData
 };
