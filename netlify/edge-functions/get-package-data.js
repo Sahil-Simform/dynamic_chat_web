@@ -8,6 +8,16 @@ async function getPackageData(packageName) {
   return raw ? JSON.parse(raw) : null;
 }
 
+async function getGithubData(packageName) {
+  const store = getStore({ name: NAMESPACE });
+  const raw = await store.get(`github-data`);
+  if (raw) {
+    const githubData = JSON.parse(raw);
+    return githubData[packageName] || null;
+  }
+  return null;
+}
+
 async function getAllPackageData() {
   const store = getStore({ name: NAMESPACE });
   const raw = await store.get('package-data');
@@ -46,8 +56,12 @@ export default async (request) => {
     const packageName = url.searchParams.get('package');
 
     let data;
+    let githubData = null;
+    
     if (packageName) {
       data = await getPackageData(packageName);
+      githubData = await getGithubData(packageName);
+      
       if (!data) {
         return new Response(
           JSON.stringify({
@@ -63,6 +77,11 @@ export default async (request) => {
             }
           }
         );
+      }
+      
+      // Merge GitHub data if available
+      if (githubData) {
+        data = { ...data, ...githubData };
       }
     } else {
       data = await getAllPackageData();

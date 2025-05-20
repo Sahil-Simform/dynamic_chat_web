@@ -9,7 +9,8 @@ const PACKAGE_REPO_MAP = {
   'chatview': 'SimformSolutionsPvtLtd/chatview',
   'calendar_view': 'SimformSolutionsPvtLtd/flutter_calendar_view',
   'flutter_credit_card': 'SimformSolutionsPvtLtd/flutter_credit_card',
-  'audio_waveforms': 'SimformSolutionsPvtLtd/audio_waveforms'
+  'audio_waveforms': 'SimformSolutionsPvtLtd/audio_waveforms',
+  'chatview_connect': 'SimformSolutionsPvtLtd/chatview_connect'
 };
 
 // This function runs hourly
