@@ -23,8 +23,20 @@ const MANUAL_NETLIFY_CONFIG = {
 // Default packages to track
 const DEFAULT_PACKAGES = ['showcaseview', 'chatview', 'calendar_view', 'flutter_credit_card', 'audio_waveforms', 'chatview_connect', 'splash_master'];
 
+// Default GitHub repository mappings for packages
+const DEFAULT_REPO_MAPPINGS = {
+  'showcaseview': 'simformsolutions/flutter_showcaseview',
+  'chatview': 'SimformSolutionsPvtLtd/chatview',
+  'calendar_view': 'SimformSolutionsPvtLtd/flutter_calendar_view',
+  'flutter_credit_card': 'SimformSolutionsPvtLtd/flutter_credit_card',
+  'audio_waveforms': 'SimformSolutionsPvtLtd/audio_waveforms',
+  'chatview_connect': 'SimformSolutionsPvtLtd/chatview_connect',
+  'splash_master': 'SimformSolutionsPvtLtd/splash_master'
+};
+
 module.exports = {
   FORCE_PRODUCTION_MODE,
   MANUAL_NETLIFY_CONFIG,
-  DEFAULT_PACKAGES
+  DEFAULT_PACKAGES,
+  DEFAULT_REPO_MAPPINGS
 };

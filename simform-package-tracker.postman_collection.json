@@ -228,6 +228,177 @@
 			"description": "APIs for managing which packages are tracked by the system."
 		},
 		{
+			"name": "Repository Mappings",
+			"item": [
+				{
+					"name": "Get Repository Mappings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/.netlify/functions/manage-repo-mappings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								".netlify",
+								"functions",
+								"manage-repo-mappings"
+							]
+						},
+						"description": "Gets the current mappings between package names and GitHub repositories."
+					},
+					"response": []
+				},
+				{
+					"name": "Add Repository Mapping",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"action\": \"add\",\n    \"package\": \"flutter_bloc\",\n    \"repo\": \"felangel/bloc\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/.netlify/functions/manage-repo-mappings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								".netlify",
+								"functions",
+								"manage-repo-mappings"
+							]
+						},
+						"description": "Adds a single repository mapping for a package."
+					},
+					"response": []
+				},
+				{
+					"name": "Add Multiple Repository Mappings",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"action\": \"add\",\n    \"mappings\": {\n        \"flutter_bloc\": \"felangel/bloc\",\n        \"get_it\": \"fluttercommunity/get_it\",\n        \"dio\": \"flutterchina/dio\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/.netlify/functions/manage-repo-mappings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								".netlify",
+								"functions",
+								"manage-repo-mappings"
+							]
+						},
+						"description": "Adds multiple repository mappings for packages."
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Repository Mapping",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"action\": \"remove\",\n    \"package\": \"http\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/.netlify/functions/manage-repo-mappings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								".netlify",
+								"functions",
+								"manage-repo-mappings"
+							]
+						},
+						"description": "Removes a single repository mapping."
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Multiple Repository Mappings",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"action\": \"remove\",\n    \"packages\": [\"provider\", \"http\"]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/.netlify/functions/manage-repo-mappings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								".netlify",
+								"functions",
+								"manage-repo-mappings"
+							]
+						},
+						"description": "Removes multiple repository mappings."
+					},
+					"response": []
+				},
+				{
+					"name": "Set All Repository Mappings",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"action\": \"set\",\n    \"mappings\": {\n        \"flutter\": \"flutter/flutter\",\n        \"flutter_bloc\": \"felangel/bloc\",\n        \"equatable\": \"felangel/equatable\",\n        \"dio\": \"flutterchina/dio\",\n        \"get_it\": \"fluttercommunity/get_it\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/.netlify/functions/manage-repo-mappings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								".netlify",
+								"functions",
+								"manage-repo-mappings"
+							]
+						},
+						"description": "Replaces the entire repository mappings with a new set."
+					},
+					"response": []
+				}
+			],
+			"description": "APIs for managing the mappings between package names and GitHub repositories."
+		},
+		{
 			"name": "Manual Functions",
 			"item": [
 				{

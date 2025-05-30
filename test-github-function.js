@@ -7,8 +7,10 @@
  * Run with: node test-github-function.js
  */
 
-// Import the function handler directly
+// Import required modules
 const { handler } = require('./netlify_functions/fetch-github-stars');
+const { getRepoMappings, updateRepoMappings } = require('./netlify_functions/storage');
+const { DEFAULT_REPO_MAPPINGS } = require('./netlify_functions/config');
 
 // Create mock event object (similar to what Netlify would provide)
 const mockEvent = {
@@ -25,6 +27,19 @@ async function runTest() {
   console.log('Testing GitHub stars fetch function...');
   
   try {
+    // First, ensure we have repository mappings
+    const mappings = await getRepoMappings();
+    
+    if (Object.keys(mappings).length === 0) {
+      console.log('No repository mappings found. Initializing with default mappings...');
+      await updateRepoMappings(DEFAULT_REPO_MAPPINGS);
+      console.log('Repository mappings initialized with:', Object.keys(DEFAULT_REPO_MAPPINGS).length, 'entries');
+    } else {
+      console.log('Found', Object.keys(mappings).length, 'repository mappings');
+    }
+    
+    // Now execute the GitHub stars fetch function
+    console.log('\nFetching GitHub repository data...');
     const response = await handler(mockEvent);
     console.log('Function executed successfully!');
     console.log('Status code:', response.statusCode);

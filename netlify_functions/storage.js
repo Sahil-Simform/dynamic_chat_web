@@ -1,12 +1,13 @@
 // filepath: /Users/sahil.t/StudioProjects/dynamic_chat_web/netlify_functions/storage.js
 const { getStore } = require('@netlify/blobs');
-const { FORCE_PRODUCTION_MODE, MANUAL_NETLIFY_CONFIG, DEFAULT_PACKAGES } = require('./config');
+const { FORCE_PRODUCTION_MODE, MANUAL_NETLIFY_CONFIG, DEFAULT_PACKAGES, DEFAULT_REPO_MAPPINGS } = require('./config');
 
 // In-memory store for local development
 const localStore = {
   data: {
     'package-list': JSON.stringify(DEFAULT_PACKAGES),
     'package-data': JSON.stringify({}),
+    'repo-mappings': JSON.stringify(DEFAULT_REPO_MAPPINGS),
     'last-updated': JSON.stringify(new Date().toISOString())
   },
   get: async function(key) {
@@ -167,6 +168,35 @@ async function getPackageData(packageName) {
 }
 
 /**
+ * Gets the GitHub repository mappings
+ */
+async function getRepoMappings() {
+  try {
+    const store = getStoreInstance();
+    const data = await store.get('repo-mappings');
+    // Initialize with default mappings if not found
+    return data ? JSON.parse(data) : DEFAULT_REPO_MAPPINGS;
+  } catch (error) {
+    console.error(`Error getting repo mappings: ${error.message}`);
+    return DEFAULT_REPO_MAPPINGS;
+  }
+}
+
+/**
+ * Updates the GitHub repository mappings
+ */
+async function updateRepoMappings(mappings) {
+  try {
+    const store = getStoreInstance();
+    await store.set('repo-mappings', JSON.stringify(mappings));
+    return true;
+  } catch (error) {
+    console.error(`Error updating repo mappings: ${error.message}`);
+    return false;
+  }
+}
+
+/**
  * Saves GitHub data for packages and merges it with existing package data
  */
 async function saveGithubData(githubData, currentPackageData) {
@@ -231,5 +261,7 @@ module.exports = {
   getAllPackageData,
   getPackageData,
   saveGithubData,
-  getGithubData
+  getGithubData,
+  getRepoMappings,
+  updateRepoMappings
 };
