@@ -10,11 +10,12 @@ const PACKAGE_REPO_MAP = {
   'calendar_view': 'SimformSolutionsPvtLtd/flutter_calendar_view',
   'flutter_credit_card': 'SimformSolutionsPvtLtd/flutter_credit_card',
   'audio_waveforms': 'SimformSolutionsPvtLtd/audio_waveforms',
-  'chatview_connect': 'SimformSolutionsPvtLtd/chatview_connect'
+  'chatview_connect': 'SimformSolutionsPvtLtd/chatview_connect',
+  'splash_master': 'SimformSolutionsPvtLtd/splash_master'
 };
 
 // This function runs hourly
-exports.handler = schedule('0 * * * *', async (event) => {
+exports.handler = schedule('*/30 * * * *', async (event) => {
   try {
     // Get list of packages we want to track
     const packages = await getPackageList();

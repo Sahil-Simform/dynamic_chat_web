@@ -4,7 +4,7 @@ const { schedule } = require('@netlify/functions');
 const { getPackageList, savePackageData } = require('./storage');
 
 // This function runs every 1 minutes
-exports.handler = schedule('*/1 * * * *', async (event) => {
+exports.handler = schedule('*/5 * * * *', async (event) => {
   try {
     // Get list of packages we want to track
     const packages = await getPackageList();
